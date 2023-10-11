@@ -27,6 +27,7 @@
   <link href="{{ url('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="{{ url('assets/css/style.css') }}" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
  <!-- CSRF Token -->
  <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -46,62 +47,76 @@
                 <ul class="d-flex align-items-center">
 
                
-
+                <!-- <li class="nav-item">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-cart"></i>
+                        <span class="badge bg-primary badge-number">0</span>
+                    </a>
+                </li> -->
                 <li class="nav-item dropdown pe-3">
 
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">{{auth()->user()->name}}</span>
-                </a><!-- End Profile Iamge Icon -->
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{auth()->user()->name}}</span>
+                    </a><!-- End Profile Iamge Icon -->
 
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                    <li class="dropdown-header">
-                        <h6 style="text-align:left;">{{auth()->user()->name}}</h6>
-                    </li>
-                    <li>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6 style="text-align:left;">{{auth()->user()->name}}</h6>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-person"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-cart"></i>
+                                <span>View My Cart</span>
+                            </a>
+                        </li>
+                        <li>
+                        <!-- <hr class="dropdown-divider">
+                        </li> -->
+                        <!-- <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-gear"></i>
+                                <span>Account Settings</span>
+                            </a>
+                        </li> -->
+                        <!-- <li>
                         <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                        <i class="bi bi-person"></i>
-                        <span>My Profile</span>
-                    </a>
-                    </li>
-                    <li>
-                    <!-- <hr class="dropdown-divider">
-                    </li> -->
-                    <!-- <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                            <i class="bi bi-gear"></i>
-                            <span>Account Settings</span>
+                        </li> -->
+
+                        <!-- <li>
+                            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                            <i class="bi bi-question-circle"></i>
+                            <span>Need Help?</span>
                         </a>
-                    </li> -->
-                    <!-- <li>
-                    <hr class="dropdown-divider">
-                    </li> -->
+                        </li> -->
+                        <li>
+                        <hr class="dropdown-divider">
+                        </li>
 
-                    <!-- <li>
-                        <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                        <i class="bi bi-question-circle"></i>
-                        <span>Need Help?</span>
-                    </a>
-                    </li> -->
-                    <li>
-                    <hr class="dropdown-divider">
-                    </li>
+                        <li>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                        <i class="bi bi-box-arrow-right"></i>
+                            <span>Sign Out</span>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                        </li>
 
-                    <li>
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                       <i class="bi bi-box-arrow-right"></i>
-                        <span>Sign Out</span>
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                    </li>
-
-                </ul><!-- End Profile Dropdown Items -->
+                    </ul><!-- End Profile Dropdown Items -->
                 </li><!-- End Profile Nav -->
 
             </ul>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\users_products;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -27,5 +28,18 @@ class ProductController extends Controller
         $products = Products::all();
         
         return view('distributorPages/products')->with('products',$products);
+    }
+
+    public function getPrice(Request $request)
+    {
+        $product_id = $request->product_id;
+        $user_id = $request->user_id;
+
+        $where = ['product_id' => $product_id, 'user_id' => $user_id];
+
+        $results = users_products::where($where)->get();
+
+        return response()->json($results);
+
     }
 }
