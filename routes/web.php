@@ -27,6 +27,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/products/getPrice', [ProductController::class, 'getPrice'])->name('getPrice');
+Route::post('/products/addToCart', [ProductController::class, 'addToCart'])->name('addToCart');
 Route::get('/productsA', [AdminController::class, 'productTable'])->name('productTable');
 Route::resource('productsF', AdminController::class);
 

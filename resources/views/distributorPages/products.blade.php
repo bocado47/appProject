@@ -11,6 +11,11 @@
         </div>
     </div>
     
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+           <p>{{ $message }}</p>
+        </div>
+     @endif
     <div class="row align-items-top">
         @foreach($products as $p)
            
@@ -44,14 +49,15 @@
                       <h5 class="modal-title"></h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form class="row g-3" action="{{ route('productsStore') }}" method="POST" enctype="multipart/form-data">
+                    <form class="row g-3" id="cartform" action="{{ route('addToCart') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" id="productId"/>
+                    <input type="hidden" name="product_id" id="productId"/>
+                    <input type="hidden" name="user_id" id="user_id" value="{{auth()->user()->id}}"/>
                         <div class="modal-body">
                             <div class="row m-2">
                                 <div class="col-md-12">
                                     <div class="form-floating">
-                                        <input type="number" class="form-control" id="Quantity" name="Quantity"  placeholder="Quantity" min="1">
+                                        <input type="number" class="form-control" id="Quantity" name="quantity"  placeholder="Quantity" min="1">
                                         <label for="name">Quantity</label>
                                     </div>
                                 </div>
@@ -61,13 +67,14 @@
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="number" class="form-control" id="DPrice" placeholder="Price" disabled>
-                                        <input type="hidden" class="form-control" id="Price" name="Price">
+                                        <input type="hidden" class="form-control" id="Price" >
                                         <label for="Price">Price</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="number" class="form-control" id="TotalPrice" name="TotalPrice"  placeholder="Total Price" disabled>  
+                                        <input type="number" class="form-control" id="TotalPrice"   placeholder="Total Price" disabled> 
+                                        <input type="hidden" class="form-control" id="TotalPrice" name="total_price">  
                                         <label for="TotalPrice">Total Price</label>
                                     </div>
                                 </div>
@@ -75,7 +82,7 @@
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Add To Cart</button>
+                        <button type="submit" class="btn btn-primary" id="addtocart">Add To Cart</button>
                         </div>
                     </form>
                   </div>
@@ -105,11 +112,12 @@
                     $(e.currentTarget).find('.modal-title').text(name);
                     $(e.currentTarget).find('#productId').val(id);
 
-                    $(e.currentTarget).find('#Quantity').on('change',function(){
+                    $(e.currentTarget).find('#Quantity').on('keyup',function(){
                         var quantity = $(this).val()
                         var TotalPrice = own_price * quantity;
                         $(e.currentTarget).find('#TotalPrice').val(TotalPrice);
                     });
                 })
+
             </script>
 @endsection

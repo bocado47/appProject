@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Products;
 use App\Models\users_products;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -41,5 +42,14 @@ class ProductController extends Controller
 
         return response()->json($results);
 
+    }
+
+    public function addToCart(Request $request)
+    {
+
+        
+        Cart::create($request->post());
+
+        return redirect()->route('products')->with('success','Item has been added to your cart.');
     }
 }
