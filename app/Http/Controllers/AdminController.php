@@ -6,6 +6,7 @@ use DB;
 use App\Quotation;
 use App\Models\User;
 use App\Models\users_info;
+use App\Models\users_products;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use DataTables;
@@ -98,14 +99,14 @@ class AdminController extends Controller
         return view('admin.users')->withData( $data );
     }
 
-    public function usersProducts()
+    public function usersProducts(Request $request)
     {
         $data = DB::table('users_products')
-            ->join('users', 'users.id', '=', 'users_products.user_id')
-            ->join('products', 'products.id', '=', 'users_products.product_id')
-            ->select('*')
+            ->where('users_products.user_id',$request->id)
+            ->join('users', 'users.id', '=', 'users_products.user_id','left')
+            ->join('products', 'products.id', '=', 'users_products.product_id','left')
+            ->select('users_products.id AS upid','users_products.*','products.*')
             ->get();
-
         return view('admin.usersProducts')->withData( $data );
     }
     public function activateUser(Request $request)
@@ -122,5 +123,17 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->route('userTable')->with('success','User Activated successfully.');
+    }
+
+    public function editPrice(Request $request)
+    {   
+        
+        $users_products = users_products::find($request->id);
+ 
+        $users_products->own_price = $request->own_price;
+        
+        $users_products->save();
+
+        return redirect()->route('userTable')->with('success','Price Updated Successfully.');
     }
 }

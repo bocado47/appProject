@@ -10,4 +10,6 @@ class users_products extends Model
     use HasFactory;
 
     protected $table = 'users_products';
+
+    protected $fillable = ['own_price'];
 }

@@ -45,3 +45,4 @@ Route::delete('/productsDelete/{id}', [AdminController::class, 'delete'])->name(
 Route::get('/usersA', [AdminController::class, 'userTable'])->name('userTable');
 Route::get('/usersProducts/{id}', [AdminController::class, 'usersProducts'])->name('usersProducts');
 Route::post('/products/activateUser', [AdminController::class, 'activateUser'])->name('activateUser');
+Route::post('/products/editPrice', [AdminController::class, 'editPrice'])->name('editPrice');
