@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use App\Quotation;
 use App\Models\User;
 use App\Models\users_info;
 use App\Models\Products;
@@ -88,5 +90,37 @@ class AdminController extends Controller
         $products = Products::find($request->id);
         $products->delete();
         return redirect()->route('productTable')->with('success','Products has been deleted successfully');
+    }
+
+    public function userTable()
+    {
+        $data = User::all();
+        return view('admin.users')->withData( $data );
+    }
+
+    public function usersProducts()
+    {
+        $data = DB::table('users_products')
+            ->join('users', 'users.id', '=', 'users_products.user_id')
+            ->join('products', 'products.id', '=', 'users_products.product_id')
+            ->select('*')
+            ->get();
+
+        return view('admin.usersProducts')->withData( $data );
+    }
+    public function activateUser(Request $request)
+    {
+
+        
+        users_info::create($request->post());
+
+
+        $user = User::find($request->user_id);
+ 
+        $user->is_active = true;
+        
+        $user->save();
+
+        return redirect()->route('userTable')->with('success','User Activated successfully.');
     }
 }

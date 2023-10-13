@@ -30,7 +30,7 @@
                     <h6 class="card-text">Current Stocks: {{$p->stocks}}</h6><br/>
                     <p class="card-text">{{$p->details}}</p>
                         @if($p->stocks > 0)
-                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal" data-name="{{ $p->name }}" data-id="{{ $p->id }}">Add To Cart</a>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal" data-name="{{ $p->name }}" data-id="{{ $p->id }}" data-price="{{ $p->main_price }}">Add To Cart</a>
                         @else
                         <a href="#" class="btn btn-primary disabled" >No Stocks</a>
                         @endif
@@ -93,6 +93,7 @@
                 $(document).on('show.bs.modal','#basicModal', function (e) {
                     var name = $(e.relatedTarget).data('name');
                     var id = $(e.relatedTarget).data('id');
+                    var price = $(e.relatedTarget).data('price');
                     var user_id = "{{auth()->user()->id}}";
                     var own_price = "";
                     $.ajax({
@@ -103,9 +104,18 @@
 						},
 						url: "{{route('getPrice')}}",
 						success: function(data) {
-                            own_price = data[0].own_price;
-                            $(e.currentTarget).find('#DPrice').val(parseFloat(data[0].own_price, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
-                            $(e.currentTarget).find('#Price').val(data[0].own_price);
+                            
+                            
+                            if(data == '')
+                            {
+                                own_price = price;
+                                $(e.currentTarget).find('#DPrice').val(parseFloat(price, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
+                                $(e.currentTarget).find('#Price').val(price);
+                            }else{
+                                own_price = data[0].own_price;
+                                $(e.currentTarget).find('#DPrice').val(parseFloat(data[0].own_price, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
+                                $(e.currentTarget).find('#Price').val(data[0].own_price);
+                            }
 						}
 					});
 

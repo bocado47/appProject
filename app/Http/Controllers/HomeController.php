@@ -27,15 +27,15 @@ class HomeController extends Controller
     public function index()
     {
         
-        $user = users_info::find(auth()->user()->id);
+        // $user = users_info::find(auth()->user()->id);
         
                     //   print_r($user);
-        if($user->is_active)
+        if(auth()->user()->is_active)
         {
             return view('home');
         }else{
             Auth::logout();
-            return redirect('/login')->with('error','Contact Admin To Activet Your Account');
+            return redirect('/login')->with('error','Contact Admin To Activate Your Account');
             
         }            
         // 
