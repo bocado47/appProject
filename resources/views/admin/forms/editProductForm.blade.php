@@ -34,6 +34,10 @@
                     <label for="details">Details</label>
                   </div>
                 </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                      <input class="form-control" type="file" name="image_url" id="image_url">
+                </div>
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary">Submit</button>
                   <button type="reset" class="btn btn-secondary">Reset</button>

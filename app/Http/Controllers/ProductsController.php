@@ -35,11 +35,31 @@ class ProductsController extends Controller
             'details' => 'required',
             'main_price' => 'required',
             'stocks' => 'required',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         
-        Products::create($request->post());
+
+
+
+        if ($request->hasFile('image_url')) {
+            $image = $request->file('image_url');
+           //  print_r($image);
+           $image_name = $image->getClientOriginalName();
+           //  echo $image;
+           //  exit(0);
+            $destinationPath = public_path('assets\img\products');
+            // dd($destinationPath);
+            $image->move($destinationPath, $image_name);
+            Products::create($request->post()  + ['image_url' => $image_name]);
 
         return redirect()->route('productTable')->with('success','Products has been created successfully.');
+          } 
+            else {                          
+
+            // echo $request;
+             }
+
+       
     }
 
     /**
@@ -69,18 +89,36 @@ class ProductsController extends Controller
             'details' => 'required',
             'main_price' => 'required',
             'stocks' => 'required',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         
         $products = Products::find($request->id);
-        $products->update([
-            'name' => $request->name,
-            'details' => $request->details,
-            'main_price' => $request->main_price,
-            'stocks' => $request->stocks,
-        ]);
-        // $products->fill($request->post())->save();
+        // dd($request->image_url->getClientOriginalName());
+        if ($request->hasFile('image_url')) {
+            $image = $request->file('image_url');
+           //  print_r($image);
+            $image_name = $image->getClientOriginalName();
+           //  echo $image;
+           //  exit(0);
+            $destinationPath = public_path('assets\img\products');
+            // dd($destinationPath);
+            $image->move($destinationPath, $image_name);
+            $products->update([
+                'name' => $request->name,
+                'details' => $request->details,
+                'main_price' => $request->main_price,
+                'stocks' => $request->stocks,
+                'image_url' => $image_name,
+            ]);
+            // $products->fill($request->post())->save();
+    
+            return redirect()->route('productTable')->with('success','Products has been updated successfully.');
+          } 
+            else {                          
 
-        return redirect()->route('productTable')->with('success','Products has been updated successfully.');
+            // echo $request;
+             }
+   
     }
 
     /**
