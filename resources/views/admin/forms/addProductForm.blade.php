@@ -27,11 +27,16 @@
                     <label for="stocks">Stocks</label>
                   </div>
                 </div>
+                
                 <div class="col-12">
                   <div class="form-floating">
                     <textarea class="form-control" placeholder="Address" id="details" name="details" style="height: 100px;"></textarea>
                     <label for="details">Details</label>
                   </div>
+                </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                      <input class="form-control" type="file" id="formFile" >
                 </div>
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary">Submit</button>
