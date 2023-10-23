@@ -142,7 +142,7 @@
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('products') }}">
+                    <a href="#">
                     <i class="bi bi-circle"></i><span>Products</span>
                     </a>
                 </li>
@@ -168,12 +168,12 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-journal-text"></i><span>Admin</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-journal-text"></i><span>Master Data</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('userTable') }}">
-                    <i class="bi bi-circle"></i><span>User</span>
+                    <a href="{{ route('position') }}">
+                    <i class="bi bi-circle"></i><span>User Positions</span>
                     </a>
                 </li>
                 <li>
@@ -182,15 +182,11 @@
                     </a>
                 </li>
                 <li>
-                    <a href="forms-editors.html">
-                    <i class="bi bi-circle"></i><span>User Price</span>
+                    <a href="{{ route('pricePerPosition') }}">
+                    <i class="bi bi-circle"></i><span>Price Per Position</span>
                     </a>
                 </li>
-                <li>
-                    <a href="forms-validation.html">
-                    <i class="bi bi-circle"></i><span>Reports</span>
-                    </a>
-                </li>
+                
                 </ul>
             </li><!-- End Forms Nav -->
 
